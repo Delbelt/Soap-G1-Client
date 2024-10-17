@@ -19,6 +19,17 @@ builder.Services.AddScoped<CountryPortClient>(provider =>
 
 builder.Services.AddScoped<ICountryService, CountryService>();
 
+builder.Services.AddScoped<FilterPortClient>(provider =>
+{
+    var endpointAddress = new System.ServiceModel.EndpointAddress("http://localhost:8080/ws/filters");
+    var binding = new System.ServiceModel.BasicHttpBinding();
+
+    return new FilterPortClient(binding, endpointAddress);
+});
+
+builder.Services.AddScoped<IFilterService, FilterService>();
+
+
 // configura los CORS para que funcione en el front
 builder.Services.AddCors(options =>
 {
