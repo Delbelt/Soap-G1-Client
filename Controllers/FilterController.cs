@@ -38,5 +38,23 @@ public class FilterController : ControllerBase
         }
     }
 
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetFiltersByUser(int userId)
+    {
+        try
+        {
+            var filters = await _filterService.GetFiltersByUser(userId);
+
+            _logger.LogInformation("[FilterController][GetFiltersByUser]: {message}", filters);
+
+            return Ok(filters);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("[FilterController][GetFiltersByUser]: {message}", ex.Message);
+
+            return BadRequest($"Error fetching filters for user {userId}: {ex.Message}");
+        }
+    }
 
 }

@@ -16,5 +16,11 @@
             return response.SaveFilterResponse.filter;
         }
 
+        public async Task<List<FilterSoap>> GetFiltersByUser(int userId)
+        {
+            var request = new GetFiltersByUserRequest { user = userId };
+            var response = await _filterClient.GetFiltersByUserAsync(request);
+            return response.GetFiltersByUserResponse1.ToList();
+        }
     }
 }
