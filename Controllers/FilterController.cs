@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 [Route("api/[controller]")]
 public class FilterController : ControllerBase
 {
-    private readonly FilterPortClient _filterClient;
-    private readonly ILogger<IFilterService> _logger;
+    private readonly IFilterService _filterService;
+    private readonly ILogger<FilterController> _logger;
 
-    public FilterController(FilterPortClient filterClient, ILogger<IFilterService> logger)
+    public FilterController(IFilterService filterService, ILogger<FilterController> logger)
     {
-        _filterClient = filterClient;
+        _filterService = filterService;
         _logger = logger;
     }
 
@@ -24,18 +24,19 @@ public class FilterController : ControllerBase
     {
         try
         {
-            var request = new SaveFilterRequest { filter = filter };
-            var response = await _filterClient.SaveFilterAsync(request);
-            _logger.LogInformation("[FilterController][SaveFilter]: {message}", response);
-            return Ok(response.SaveFilterResponse.filter);
+            var savedFilter = await _filterService.SaveFilter(filter);
+
+            _logger.LogInformation("[FilterController][SaveFilter]: {message}", savedFilter);
+
+            return Ok(savedFilter);
         }
-       
-        catch(Exception ex)
-            {
+        catch (Exception ex)
+        {
             _logger.LogError("[FilterController][SaveFilter]: {message}", ex.Message);
 
-            return BadRequest($"Error: {ex.Message}");
+            return BadRequest($"Error saving the filter: {ex.Message}");
         }
     }
+
 
 }
