@@ -2,6 +2,6 @@
 {
     public interface IPurchaseOrderService
     {
-        Task<List<PurchaseOrderSoap>> SearchPurchaseOrdersAsync(string? productCode = null, DateTime? startRequestDate = null, DateTime? endRequestDate = null, string? status = null, string? storeCode = null);
+        Task<List<PurchaseOrderSoap>> SearchPurchaseOrdersAsync(string? productCode, string? startRequestDate, string? endRequestDate, string? status, string? storeCode);
     }
 }

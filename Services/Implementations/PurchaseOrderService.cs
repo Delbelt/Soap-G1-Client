@@ -1,4 +1,6 @@
-﻿namespace soap_client.Services.Implementations
+﻿using System.Globalization;
+
+namespace soap_client.Services.Implementations
 {
     public class PurchaseOrderService : IPurchaseOrderService
     {
@@ -10,32 +12,33 @@
         }
 
         public async Task<List<PurchaseOrderSoap>> SearchPurchaseOrdersAsync(
-            string? productCode = null, 
-            DateTime? startRequestDate = null, 
-            DateTime? endRequestDate = null, 
-            string? status = null, 
-            string? storeCode = null)
+            string? productCode, 
+            string? startRequestDate, 
+            string? endRequestDate, 
+            string? status, 
+            string? storeCode)
         {
-
+           
             var request = new SearchPurchaseOrdersRequest
             {
-                productCode = string.IsNullOrEmpty(productCode) ? null : productCode,
+                productCode = productCode,
                 startRequestDate = startRequestDate,
                 endRequestDate = endRequestDate,
-                status = string.IsNullOrEmpty(status) ? null : status,
-                storeCode = string.IsNullOrEmpty(storeCode) ? null : storeCode
+                status = status,
+                storeCode = storeCode
             };
-
+            // Esto permite inspeccionar la solicitud en caso de que tengas la capacidad de hacerlo
+            Console.WriteLine("Sending Request:");
+            Console.WriteLine($"Product Code: {request.productCode}");
+            Console.WriteLine($"Start Request Date: {request.startRequestDate}");
+            Console.WriteLine($"End Request Date: {request.endRequestDate}");
+            Console.WriteLine($"Status: {request.status}");
+            Console.WriteLine($"Store Code: {request.storeCode}");
             var response = await _client.SearchPurchaseOrdersAsync(request);
 
             return response.SearchPurchaseOrdersResponse1?.ToList() ?? new List<PurchaseOrderSoap>();
   
         }
+
     }
-    }
-
-
-
-
-
-
+}

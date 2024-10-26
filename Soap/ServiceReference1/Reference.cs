@@ -28,13 +28,9 @@ public partial class SearchPurchaseOrdersRequest
     
     private string productCodeField;
     
-    private System.DateTime? startRequestDateField;
+    private string startRequestDateField;
     
-    private bool startRequestDateFieldSpecified;
-    
-    private System.DateTime? endRequestDateField;
-    
-    private bool endRequestDateFieldSpecified;
+    private string endRequestDateField;
     
     private string statusField;
     
@@ -56,7 +52,7 @@ public partial class SearchPurchaseOrdersRequest
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Order=1)]
-    public System.DateTime? startRequestDate
+    public string startRequestDate
     {
         get
         {
@@ -69,22 +65,8 @@ public partial class SearchPurchaseOrdersRequest
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool startRequestDateSpecified
-    {
-        get
-        {
-            return this.startRequestDateFieldSpecified;
-        }
-        set
-        {
-            this.startRequestDateFieldSpecified = value;
-        }
-    }
-    
-    /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Order=2)]
-    public System.DateTime? endRequestDate
+    public string endRequestDate
     {
         get
         {
@@ -93,20 +75,6 @@ public partial class SearchPurchaseOrdersRequest
         set
         {
             this.endRequestDateField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool endRequestDateSpecified
-    {
-        get
-        {
-            return this.endRequestDateFieldSpecified;
-        }
-        set
-        {
-            this.endRequestDateFieldSpecified = value;
         }
     }
     
@@ -192,11 +160,9 @@ public partial class PurchaseOrderSoap
     
     private string observationsField;
     
-    private System.DateTime requestDateField;
+    private string requestDateField;
     
-    private System.DateTime receiptDateField;
-    
-    private bool receiptDateFieldSpecified;
+    private string receiptDateField;
     
     private string storeCodeField;
     
@@ -246,7 +212,7 @@ public partial class PurchaseOrderSoap
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Order=3)]
-    public System.DateTime requestDate
+    public string requestDate
     {
         get
         {
@@ -260,7 +226,7 @@ public partial class PurchaseOrderSoap
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute(Order=4)]
-    public System.DateTime receiptDate
+    public string receiptDate
     {
         get
         {
@@ -269,20 +235,6 @@ public partial class PurchaseOrderSoap
         set
         {
             this.receiptDateField = value;
-        }
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIgnoreAttribute()]
-    public bool receiptDateSpecified
-    {
-        get
-        {
-            return this.receiptDateFieldSpecified;
-        }
-        set
-        {
-            this.receiptDateFieldSpecified = value;
         }
     }
     

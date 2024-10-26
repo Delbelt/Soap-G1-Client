@@ -20,11 +20,11 @@ namespace soap_client.Controllers
 
         [HttpGet("search")]
         public async Task<IActionResult> SearchPurchaseOrders(
-            string? productCode = null,
-            DateTime? startRequestDate = null,
-            DateTime? endRequestDate = null,
-            string? status = null,
-            string? storeCode = null)
+            string? productCode,
+            string? startRequestDate,
+            string? endRequestDate,
+            string? status,
+            string? storeCode)
         {
             try
             {
