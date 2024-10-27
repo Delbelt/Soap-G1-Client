@@ -20,7 +20,18 @@ builder.Services.AddScoped<CountryPortClient>(provider =>
 
 builder.Services.AddScoped<ICountryService, CountryService>();
 
-// Configuración del cliente para el servicio de órdenes de compra
+
+builder.Services.AddScoped<CatalogsPortClient>(provider =>
+{
+    var endpointAddress = new System.ServiceModel.EndpointAddress("http://localhost:8080/ws/catalogs");
+    var binding = new System.ServiceModel.BasicHttpBinding();
+
+    return new CatalogsPortClient(binding, endpointAddress);
+});
+
+builder.Services.AddScoped<ICatalogService, CatalogService>();
+
+// ConfiguraciÃ³n del cliente para el servicio de Ã³rdenes de compra
 builder.Services.AddScoped<PurchaseOrderPortClient>(provider =>
 {
     var endpointAddress = new System.ServiceModel.EndpointAddress("http://localhost:8080/ws/purchase_orders");
@@ -51,6 +62,7 @@ builder.Services.AddScoped<UsersPortClient>(provider =>
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
+
 
 // configura los CORS para que funcione en el front
 builder.Services.AddCors(options =>
