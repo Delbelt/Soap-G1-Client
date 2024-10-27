@@ -19,6 +19,16 @@ builder.Services.AddScoped<CountryPortClient>(provider =>
 
 builder.Services.AddScoped<ICountryService, CountryService>();
 
+builder.Services.AddScoped<CatalogsPortClient>(provider =>
+{
+    var endpointAddress = new System.ServiceModel.EndpointAddress("http://localhost:8080/ws/catalogs");
+    var binding = new System.ServiceModel.BasicHttpBinding();
+
+    return new CatalogsPortClient(binding, endpointAddress);
+});
+
+builder.Services.AddScoped<ICatalogService, CatalogService>();
+
 // configura los CORS para que funcione en el front
 builder.Services.AddCors(options =>
 {
