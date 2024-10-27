@@ -1,5 +1,6 @@
 using soap_client.Services;
 using soap_client.Services.Implementations;
+using System.ServiceModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,15 @@ builder.Services.AddScoped<FilterPortClient>(provider =>
 
 builder.Services.AddScoped<IFilterService, FilterService>();
 
+builder.Services.AddScoped<UsersPortClient>(provider =>
+{
+
+    var endpoint = new System.ServiceModel.EndpointAddress("http://localhost:8080/ws/users"); 
+    var binding = new BasicHttpBinding();
+    return new UsersPortClient(binding, endpoint);
+});
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 // configura los CORS para que funcione en el front
 builder.Services.AddCors(options =>
