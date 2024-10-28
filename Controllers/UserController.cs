@@ -16,17 +16,17 @@ namespace soap_client.Controllers
             _logger = logger;
         }
 
-        [HttpPost("cargarUsuarios")]
+        [HttpPost("insertUserFile")]
         public async Task<IActionResult> CargarUsuarios(IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
-                return BadRequest("Por favor, sube un archivo Excel válido.");
+                return BadRequest("Please, upload a valid Excel file..");
             }
 
             try
             {
-                // Convertir el archivo IFormFile a byte[]
+                
                 byte[] fileBytes;
                 using (var ms = new MemoryStream())
                 {
@@ -42,19 +42,21 @@ namespace soap_client.Controllers
                     Errores = resultado.CargarUsuariosResponse.errores
                 };
 
-                // Verificar si hay errores
+               
                 if (resultado.CargarUsuariosResponse.errores != null && resultado.CargarUsuariosResponse.errores.Length > 0)
                 {
-                    return Ok(new { Mensaje = "Se encontraron errores al cargar usuarios", Detalles = response });
+                    return Ok(new { Mensaje = "Errors found loading users", Detalles = response });
                 }
 
                 _logger.LogInformation("[UserController][CargarUsuarios]: Usuarios cargados correctamente.");
+
                 return Ok(response); 
             }
             catch (Exception ex)
             {
                 _logger.LogError("[UserController][CargarUsuarios]: {message}", ex.Message);
-                return BadRequest($"Error al cargar usuarios: {ex.Message}");
+
+                return BadRequest($"Error loading users: {ex.Message}");
             }
         }
 
