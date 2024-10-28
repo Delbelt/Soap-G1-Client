@@ -10,6 +10,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// configura los CORS para que funcione en el front
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CQRS",
+        builder => builder
+            .WithOrigins(URL_FRONT)
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
 builder.Services.AddScoped<CountryPortClient>(provider =>
 {
     var endpointAddress = new System.ServiceModel.EndpointAddress("http://localhost:8080/ws/countries");
@@ -63,17 +73,6 @@ builder.Services.AddScoped<UsersPortClient>(provider =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 
-
-// configura los CORS para que funcione en el front
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CQRS",
-        builder => builder
-            .WithOrigins(URL_FRONT)
-            .AllowAnyHeader()
-            .AllowAnyMethod());
-});
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -83,6 +82,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CQRS");
 
 app.UseAuthorization();
 
